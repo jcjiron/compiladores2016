@@ -1,0 +1,125 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	      http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4" id="WebApp_ID">
+  <display-name>Archetype Created Web Application</display-name>
+  <!-- Contiene la declaración de los parámetros de inicialización para el 
+		contexto -->
+	<context-param>
+		<!-- Indica la ubicación del archivo de configuración del contexto -->
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	
+	<!-- Filtro que permite remover el JSessionId en caso de que este haya sido 
+		agregada a la URL por no tener habilitado el uso de cookies. No hacer esto 
+		puede representar problemas de seguridad -->
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+		<init-param>
+			<param-name>logLevel</param-name>
+			<param-value>WARN</param-value>
+		</init-param>
+	</filter>
+	
+	<!-- Permite cargar objetos que tienen definida la carga 'perezosa' de Hibernate 
+		evitando con ello tener que abrir sesiones para cada objeto asociado -->
+	<filter>
+		<filter-name>openSessionInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+		<init-param>
+			<param-name>flushMode</param-name>
+			<param-value>ALWAYS</param-value>
+		</init-param>
+		<init-param>
+			<param-name>sessionFactoryBeanName</param-name>
+			<param-value>sessionFactory</param-value>
+		</init-param>
+		<init-param>
+			<param-name>singleSession</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	
+	<!-- Filtro de Struts2 que prepara las peticiones que son recibidas -->
+	<filter>
+		<filter-name>struts-prepare</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareFilter</filter-class>
+	</filter>
+
+	<!-- Filtro que permite hacer uso de SiteMesh como decorador en el proyecto -->
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+	</filter>
+
+	<!-- Filtro de struts2 que ejecuta la petición -->
+	<filter>
+		<filter-name>struts-execute</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
+	</filter>
+	
+	<!-- Mapeo de filtros -->
+	<!-- Se mapea el filtro para reescribir la url y esta es aplicada para cualquier 
+		url que venga directamente del cliente -->
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Se mapea el filtro que permite abrir sesiones durante una petición 
+		para obtener que no son cargados mediante el dao -->
+	<filter-mapping>
+		<filter-name>openSessionInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Se mapea el filtro para preparar la petición por parte de struts2 y 
+		esta es aplicada para cualquier url que venga directamente del cliente -->
+	<filter-mapping>
+		<filter-name>struts-prepare</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Se mapea el filtro para aplicar el decorador a cualquier petición -->
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+
+
+	<!-- Se mapea el filtro para ejecutar la petición por parte de struts2 y 
+		esta es aplicada para cualquier url que venga directamente del cliente -->
+	<filter-mapping>
+		<filter-name>struts-execute</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- Listeners -->
+	<!-- Listener que crea el contexto necesario una vez que se ejecuta la aplicación 
+		web, lee y parsea el context-param definido en este mismo archivo -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Listener agregado dado el uso de sitemesh -->
+	<listener>
+		<listener-class>org.apache.struts2.dispatcher.ng.listener.StrutsListener</listener-class>
+	</listener>
+	<!-- Tiempo de sesión establecido a 60 minutos -->
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	<!-- Icono a mostrar por le navegador en la barra de direcciones -->
+	<icon>
+		<small-icon>/resources/images/logo.ico</small-icon>
+		<large-icon>/resources/images/logo.ico</large-icon>
+	</icon>
+	<welcome-file-list>
+		<welcome-file>pages/index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

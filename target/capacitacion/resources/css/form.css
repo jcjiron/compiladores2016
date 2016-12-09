@@ -1,0 +1,159 @@
+@CHARSET "UTF-8";
+
+.form {
+	background-color: rgb(240, 240, 240);
+	border: 1px solid;
+	border-color: rgb(209, 209, 209);
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+}
+
+.form-small {
+	width: 50%;
+}
+
+.form-medium {
+	width: 70%;
+}
+
+.form-large {
+	width: 90%;
+}
+
+.form-group {
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+}
+
+.form-group:last-child {
+	margin-bottom: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+.title {
+	margin: 10px 0px 10px 0px;
+}
+
+/*BUTTONS*/
+.buttons-right>* {
+	float: right;
+}
+
+.buttons-right {
+	margin-top: 20px;
+}
+
+.btn {
+	margin: 0px 5px 0 5px;
+}
+/*BUTTONS*/
+
+/*LABEL*/
+.control-label {
+	padding-top: 0px !important;
+	padding-right: 5px;
+}
+
+.control-label:after {
+	content: ':';
+}
+
+.control-label ~ * {
+	padding-left: 5px;
+}
+
+.label-obligatorio:before {
+	content: '*';
+	color: red;
+}
+/*FIN LABEL*/
+
+/*SEPARADORES*/
+.separator {
+	margin: 0px 0px 10px 0px !important;
+	border-bottom: 3px solid black;
+	font-size: 120%;
+	border-bottom: 1.5px solid black;
+	font-weight: bold;
+	text-align: left;
+}
+
+.separador .separator-no-margin {
+	margin: 0px 0px 0px 0px !important;
+}
+/*SEPARADORES*/
+.intro-section {
+	padding-top: 100px !important;
+}
+
+.col-md-8>.form-group {
+	margin-bottom: 0px;
+}
+
+.table-small {
+	width: 30% !important;
+}
+
+.table-medium {
+	width: 60% !important;
+}
+
+.table-large {
+	width: 90% !important;
+}
+
+.field-error {
+	border-color: red;
+}
+
+.error {
+	border-color: red;
+}
+
+.radio-control {
+	padding-top: 0px !important;
+}
+
+.radio-control>.radio-error {
+	width: 100%;
+}
+
+.form-control-radio {
+	text-align: left;
+	clear: both;
+}
+
+.radio-container>input {
+	margin-right: 5px !important;
+}
+
+.radio-container {
+	margin-right: 20px !important;
+}
+
+.control-label {
+	text-align: right;
+}
+
+.form-group {
+	clear: both;
+}
+
+.col-contact {
+	margin-bottom: 15px !important;
+}
+
+.alert {
+	margin-bottom: 0px !important;
+	padding: 5px 15px 5px 15px;
+}
+/*
+.control-label+div>* {
+	width: 80%;
+	
+}*/

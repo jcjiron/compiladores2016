@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Define los parámetros que deben ser inciados junto con el contexto de 
+	la aplicación -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+	default-autowire="byName" default-lazy-init="true">
+
+	<!-- Bean que señala la ubicación del archivo que contiene las propiedades 
+		para conexión con BD y de configuración del pool de conexiones -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Se importa el recurso dataSource.xml -->
+	<import resource="dataSource.xml" />
+
+	<!-- Se importa el recurso hibernateSessionFactory.xml -->
+	<import resource="hibernateSessionFactory.xml" />
+
+	<!-- Habilita la configuración del comportamiento transaccional basado en 
+		anotaciones -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+
+	<!-- Indica los paquetes donde deben ser buscadas las clases anotadas que 
+		serán instanciadas como beans -->
+	<context:component-scan base-package="mx.ipn.escom.cdt.capacitacion, mx.ipn.escom.cdt.util" />
+</beans>

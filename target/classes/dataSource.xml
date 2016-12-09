@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Define los beans necesarios para poder hacer la conexión hacia la BD -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- Representa la instancia del pool de conexiones -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+
+		<!-- Se ocupa este driver para hacer el log de las sentencias completas 
+			enviadas a la BD, esta propiedad solo debe ser usada en entornos de desarrollo -->
+		<!--<property name="driverClass" value="com.p6spy.engine.spy.P6SpyDriver" 
+			/> -->
+		<!-- Propiedad que debe reemplazar la anterior en entornos de producción, 
+			en específico Tomcat -->
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+
+		<property name="jdbcUrl" value="${jdbc.url}" />
+
+		<property name="user" value="${jdbc.username}" />
+
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- Indica con cuantas conexiones será iniciado el pool -->
+		<property name="initialPoolSize" value="${initialPoolSize}" />
+
+		<!-- Indica el valor mínimo de conexiones existentes en el pool -->
+		<property name="minPoolSize" value="${minPoolSize}" />
+
+		<!-- Indica el valor máximo de conexiones existentes en el pool -->
+		<property name="maxPoolSize" value="${maxPoolSize}" />
+
+		<!-- Cuánto tiempo una conexión pueda estar sin uso antes de ser desechada -->
+		<property name="maxIdleTime" value="${maxIdleTime}" />
+
+		<!-- Número de segundos que las conexión sin ser usadas que excedan el 
+			valor mínimo del pool podrán estar en ese estado sin ser desechadas -->
+		<property name="maxIdleTimeExcessConnections" value="${maxIdleTimeExcessConnections}" />
+
+		<!-- Fuerza a desechar una conexión que haya excedido este valor -->
+		<property name="maxConnectionAge" value="${maxConnectionAge}" />
+
+		<!-- Número de hilos que realizan tareas de fondo -->
+		<property name="numHelperThreads" value="${numHelperThreads}" />
+
+		<!-- Cuántas conexiones se pondrán disponibles en el pool cada vez que 
+			este se quede sin conexiones -->
+		<property name="acquireIncrement" value="${acquireIncrement}" />
+	</bean>
+</beans>

@@ -1,0 +1,15 @@
+.contactos-container {
+	width: 70%;
+	max-width: 70%;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+}
+
+.contact-text {
+	text-align: center;
+}
+
+.contactos-container>table {
+	width: 100%;
+}

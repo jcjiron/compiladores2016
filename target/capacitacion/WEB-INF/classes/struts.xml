@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Documento que define las constantes e Interceptores con los que operará 
+	Struts2 -->
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- Excluir una url en Struts2 -->
+	<!-- <constant name="struts.action.excludePattern" value="/OL4JSFProxy/wms*" 
+		/> -->
+	<constant name="struts.action.excludePattern" value="/wsServer*" />
+
+	<!-- Delega el trabajo de creación de objetos a Spring -->
+	<constant name="struts.objectFactory"
+		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+
+	<!-- Quita la restricción de tamaño máximo de petición para el servidor 
+		de aplicaciones para el caso de envío de archivos, delegando el trabajo al 
+		interceptor de Struts -->
+	<constant name="struts.multipart.maxSize" value="-1" />
+
+	<!-- struts2 busca paquetes que terminen, en su nombre, con las siguientes 
+		cadenas en busca de acciones -->
+	<constant name="struts.convention.package.locators" value="controller" />
+
+	<!-- Indica el sufijo del nombre de los archivos para las acciones no mapeadas 
+		explicitamente -->
+	<constant name="struts.convention.action.suffix" value="Ctrl" />
+
+	<!-- Mapea todas las acciones encontradas aun y cuando no exista la anotacion 
+		correspondiente -->
+	<constant name="struts.convention.action.mapAllMatches" value="true" />
+
+	<!-- sirve para que los botones hagan diferentes accciones -->
+	<constant name="struts.mapper.action.prefix.enabled" value="true" />
+
+	<!-- Define el paquete padre que indica para todos los actions. Un paquete 
+		padre determina qué interceptores y results han de aplicarse a las acciones 
+		que contiene -->
+	<constant name="struts.convention.default.parent.package"
+		value="capacitacion" />
+
+	<!-- Permite visualizar el modo de desarrollo de struts2 -->
+	<constant name="struts.devMode" value="true" />
+
+	<constant name="struts.mapper.class" value="rest" />
+
+	<!-- Permite el mapeo de otros metodos a ejecutar dentro de un action desde 
+		la vista -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+
+	<constant name="struts.custom.i18n.resources" value="global,mx/com/emeth/mail/mailtemplates" />
+
+	<!-- Permite el uso de métodos estáticos por medio de OGNL -->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+
+	<constant name="struts.mapper.idParameterName" value="idSel" />
+
+	<!-- Permite el mapeo de las extensiones siguientes a actions -->
+	<constant name="struts.action.extension" value="," />
+
+	<!-- Ruta donde buscara los resultados -->
+	<constant name="struts.convention.result.path" value="/pages" />
+
+	<!-- Tema para usar a los elementos renderizados a partir de las etiquetas 
+		de Struts2 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.i18n.reload" value="true" />
+	<package name="capacitacion" extends="rest-default, json-default">
+		<interceptors>
+			<interceptor name="messageStoreInterceptor"
+				class="mx.com.emeth.interceptors.MessageStoreInterceptor">
+				<param name="operationMode">STORE</param>
+			</interceptor>
+			<!-- <interceptor name="autenticarInterceptor" class="mx.com.emeth.interceptors.AutenticarInterceptor"> 
+				</interceptor> -->
+			<interceptor name="workflow"
+				class="org.apache.struts2.rest.RestWorkflowInterceptor"></interceptor>
+
+			<!-- Define la pila de interceptores a ser aplicada a cada acción invocada -->
+			<interceptor-stack name="stack">
+				<!-- <interceptor-ref name="autenticarInterceptor" /> -->
+				<!-- <interceptor-ref name="messageStoreInterceptor" />-->
+				<!-- Permite el mapeo de una excepción hacia un result code, es recomendado 
+					que sea el primer interceptor -->
+				<interceptor-ref name="exception" />
+
+				<interceptor-ref name="alias" />
+
+				<!-- Establece todas las propiedades de un action basada en las interfaces 
+					que esta implementa. Está diseñado para establecer todas las propiedades 
+					que podría llegar a requerir de servleContext, servletRequest -->
+				<interceptor-ref name="servletConfig" />
+
+				<!-- Configura el idioma especificado en una sesión como el de la petición. 
+					Además, también buscará el parámetro request_locale para el cambio de idioma -->
+				<interceptor-ref name="i18n" />
+
+				<!-- Permite la ejecución del método prepare -->
+				<interceptor-ref name="prepare" />
+
+				<!-- Hace disponibles todas las propiedades del action previo al action 
+					actual. -->
+				<interceptor-ref name="chain" />
+
+				<interceptor-ref name="profiling" />
+
+				<interceptor-ref name="actionMappingParams" />
+
+				<!-- Almacena los mensajes, mensajes de error y de error de campos en 
+					la sesión de HTTP, tal que permite que sean recuperables en un momento posterior. 
+					Permite que los mensajes estén disponibles para más de una petición http -->
+				<!-- Indica que el interceptor siempre recuperará los mensajes almacenados; 
+					tras la ejecución de un action, si el result es una instancia de ServletRedirectResult, 
+					los mensajes serán almacenados automáticamente en la sesión http -->
+				<interceptor-ref name="store">
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
+
+				<!-- Si el action implementa modeldriven le permite poner en la pila 
+					de valores el modelo -->
+				<interceptor-ref name="modelDriven">
+					<!-- Indica que el modelo será refrescado en la pila de valores después 
+						de la ejecución de un action y antes de la ejecución del result. Esto es 
+						útil si se desea cambiar la instancia del modelo durante la fase de ejecución 
+						del action, como cuando se carga desde la capa de datos. -->
+					<param name="refreshModelBeforeResult">true</param>
+				</interceptor-ref>
+
+				<!-- Agrega algunos parámetros que proporcionan información acerca del 
+					archivo subido, además permite definir las restricciones par alos archivos 
+					a subir -->
+				<interceptor-ref name="fileUpload">
+					<!-- <param name="allowedTypes">application/pdf</param> -->
+					<param name="maximumSize">2097152</param>
+				</interceptor-ref>
+
+				<!-- Permite el manejo de checkboxes, estableciendo a false su valor 
+					en caso de ser unchecked -->
+				<interceptor-ref name="checkbox" />
+
+				<!-- Establece los parámetros del request sobre la pila de valores -->
+				<interceptor-ref name="params">
+					<!-- Parámetros excluidos, recomendado por struts -->
+					<param name="excludeParams">^struts\..*,</param>
+				</interceptor-ref>
+
+				<!-- -->
+				<interceptor-ref name="rest" />
+
+				<!-- Agrega mensajes de error a aquellos campos donde haya error de conversion 
+					de tipos -->
+				<interceptor-ref name="conversionError" />
+
+				<!-- Realiza la validación de todos aquellos métodos para los que exista 
+					un correspondiente validate, siempre y cuando los primeros estén anotados -->
+				<interceptor-ref name="validation">
+					<!-- Se excluyen los métodos -->
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,index,deleteConfirm</param>
+					<!--<param name="validateAnnotatedMethodOnly">true</param> -->
+				</interceptor-ref>
+
+				<interceptor-ref name="restWorkflow">
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,deleteConfirm</param>
+				</interceptor-ref>
+
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,deleteConfirm</param>
+				</interceptor-ref>
+				<!-- Provee de diferentes pantallas de depuración. Este interceptor solo 
+					se activa cuando la constante devMode está habilitada en la configuración 
+					de struts -->
+				<interceptor-ref name="debugging" />
+
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="stack" />
+
+		<!-- Resultados accesibles desde toda la aplicacion -->
+		<global-results>
+			<result name="login">/pages/control-acceso/login.jsp</result>
+			<result name="error">/pages/errorPage.jsp</result>
+			<result name="error500">/pages/errorPage.jsp</result>
+			<result name="noAutorizado">/pages/accessDenied.jsp</result>
+			<result name="session" type="redirectAction">
+				<param name="namespace">/control-acceso</param>
+				<param name="actionName">login</param>
+			</result>
+			<result name="next" type="redirectAction">${#session["current"]}</result>
+			<result name="not-permited">/pages/template.jsp</result>
+		</global-results>
+		<!-- <global-results> <result name="error">/pages/errorPage.jsp</result> 
+			<result name="not-authorized">/pages/notAuthorized.jsp</result> </global-results> -->
+
+		<!-- Mapeo de excepciones a result code -->
+		<!-- <global-exception-mappings> <exception-mapping exception="java.lang.IllegalArgumentException" 
+			result="error" /> <exception-mapping exception="java.lang.Exception" result="error" 
+			/> </global-exception-mappings> -->
+
+		<!-- <global-exception-mappings> <exception-mapping exception="mx.gob.edomex.sma.seipa.exception.OperationNotPermitedException" 
+			result="not-permited" /> <exception-mapping exception="java.lang.IllegalArgumentException" 
+			result="error" /> <exception-mapping exception="java.lang.Exception" result="error" 
+			/> <exception-mapping exception="java.lang.RuntimeException" result="error" 
+			/> <exception-mapping exception="java.net.ConnectException" result="error" 
+			/> </global-exception-mappings> -->
+	</package>
+</struts> 

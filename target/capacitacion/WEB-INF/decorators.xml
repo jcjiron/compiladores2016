@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Archivo utilizado para indicar la ubicación del decorador y los archivos 
+	a los cuáles debe ser aplicado -->
+
+<decorators defaultdir="/resources/decorators">
+	<!-- En este nodo deberían ser agregados todos aquellos recursos jsp a los 
+		que no se les desea aplicar el decorador -->
+	<excludes>
+		<pattern>*/styles/*</pattern>
+		<pattern>*/scripts/*</pattern>
+		<pattern>*/images/*</pattern>
+		<pattern>*/informacion-base/gestionar-empresa!especialistaByExample*
+		</pattern>
+	</excludes>
+	<!-- Nombre del archivo decorador ubicado en defaultdir y que será aplicado 
+		a los recursos que empaten con el patrón definido -->
+	<decorator name="layout" page="layout.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators> 

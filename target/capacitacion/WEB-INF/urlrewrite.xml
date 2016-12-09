@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<!-- Archivo que indica las reglas y expresiones para las cuales la url deberá 
+	ser reescrita eliminando el JSessionId de la misma -->
+<rules>
+	<outbound-rule encodefirst="true">
+		<!-- Remueve JSessionId de las url embebidas. Para url con parámetros -->
+		<from>^/(.*);jsessionid=.*[?](.*)$</from>
+		<to encode="false">/$1?$2</to>
+	</outbound-rule>
+	<outbound-rule encodefirst="true">
+		<!-- Remueve statusCode de las url embebidas. Para url con parámetros -->
+		<from>^/(.*)statusCode=.*[?](.*)$</from>
+		<to encode="false">/$1?$2</to>
+	</outbound-rule>
+
+	<outbound-rule encodefirst="true">
+		<!-- Remueve JSessionId de las url embebidas. Para url sin parámetros -->
+		<from>^/(.*);jsessionid=.*[^?]$</from>
+		<to encode="false">/$1</to>
+	</outbound-rule>
+	<outbound-rule encodefirst="true">
+		<!-- Remueve statusCode de las url embebidas. Para url con parámetros -->
+		<from>^/(.*)statusCode=.*[^?]$</from>
+		<to encode="false">/$1</to>
+	</outbound-rule>
+</rules>

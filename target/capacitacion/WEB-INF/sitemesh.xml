@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Define la configuración del plugin de sitemesh para aplicación de decorador -->
+
+<sitemesh>
+	<property name="decorators-file" value="/WEB-INF/decorators.xml" />
+	<excludes file="${decorators-file}" />
+
+	<!-- Se define el parser a ser ocupado, este se encargará de la extracción 
+		de los elementos HTML en ele decorador a aplicarse a los demas recursos -->
+	<page-parsers>	
+		<parser content-type="text/html"
+			class="com.opensymphony.module.sitemesh.parser.HTMLPageParser" />
+	</page-parsers>
+
+	<!-- Se indica que deberá hacer uso del mapper que lee la configuración 
+		a partir de un archivo -->
+	<decorator-mappers>
+		<mapper
+			class="com.opensymphony.module.sitemesh.mapper.ConfigDecoratorMapper">
+			<param name="config" value="${decorators-file}" />
+		</mapper>
+	</decorator-mappers>
+</sitemesh>

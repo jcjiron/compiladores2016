@@ -1,0 +1,68 @@
+body {
+	font-family: "Raleway", Helvetica, Arial, Verdana, sans-serif !important;
+	font-size: 13px/16px";
+}
+
+.navbar {
+	padding: 20px 0px 0px 0px;
+}
+
+.logo {
+	width: 100%;
+	height: 100%;
+	margin: 0px 10px 0px -10px;
+}
+
+#content {
+	min-height: 400px !important;
+}
+
+.footer {
+	clear: both;
+	width: 100%;
+	height: 100px;
+	background-color: rgb(252, 252, 252);
+	margin-top: 10px !important;
+	clear: both;
+	border-top: 1px solid;
+	border-top-color: rgb(231, 231, 231);
+	padding: 20px 0px 20px 0px;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+.container-dialog {
+	width: 95%;
+}
+
+#dlgContact, .ui-dialog {
+	width: 650px !important;
+	min-height: 200px !important;
+}
+
+#dlgContact>* {
+	display: block;
+}
+
+.col-buttons {
+	text-align: center;
+	width: 15%;
+	min-width: 15%;
+}
+
+.button-action-image:hover {
+	background-color: rgba(234, 234, 234, 0.9);
+}
+
+.button-action-image {
+	border-radius: 2px;
+	padding: 2px;
+	height: 22px;
+	width: 22px;
+	cursor: pointer;
+	margin: 0px 2px 0px 2px;
+	background-color: rgba(234, 234, 234, 0.5);
+}

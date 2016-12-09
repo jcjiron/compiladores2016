@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Define los parámetros para la creación de la instancia de la fábrica 
+	de sesiones para Hibernate -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- Se define el bean que se encargará de crear las sesiones para conexión 
+		con BD -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+
+		<!-- Se define el pool de conexiones a ser usado, referenciado en dataSource.xml -->
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+
+		<!-- Se definen las propiedades Hibernate -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- Define el dialecto de SQL a ocupar -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</prop>
+				<!-- Imprime en consola la sentencia creada por hibernate -->
+				<prop key="hibernate.show_sql">false</prop>
+
+				<!-- Permite la reflexión mediante manipulación de bytecode en lugar 
+					de reflexión en tiempo de ejecución. Esto vuelve más óptimo el trabajo de 
+					Hibernate -->
+				<prop key="hibernate.bytecode.use_reflection_optimizer">
+					true
+				</prop>
+				<prop key="hibernate.max_fetch_depth">
+					0
+				</prop>
+			</props>
+		</property>
+
+		<!-- Define dónde serán buscadas las clases anotadas definidas como entidades 
+			de JPA -->
+		<property name="packagesToScan">
+			<list>
+				<value>mx.ipn.escom.cdt.capacitacion.informacionbase.model</value>
+				<value>mx.ipn.escom.cdt.capacitacion.informacionbase.model.*</value>
+				<value>mx.ipn.escom.cdt.capacitacion.proyecto.model</value>
+				<value>mx.ipn.escom.cdt.capacitacion.proyecto.model.*</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Define el bean que se encargará de administrar las transacciones con 
+		la BD -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+</beans>
