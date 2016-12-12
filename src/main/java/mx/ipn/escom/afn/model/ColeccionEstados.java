@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ColeccionEstados {
     private ArrayList<Estado> I;
-    private boolean marcado;
+    private boolean aceptacion;
     private Integer id;
     private char alpha;
 
@@ -40,21 +40,21 @@ public class ColeccionEstados {
         return I;
     }
 
-    public boolean isMarcado() {
-        return marcado;
+    public boolean isAceptacion() {
+        return aceptacion;
     }
 
     public void setI(ArrayList<Estado> I) {
         this.I = I;
     }
 
-    public void setMarcado(boolean marcado) {
-        this.marcado = marcado;
+    public void setAceptacion() {
+        this.aceptacion = true;
     }
     
     public ColeccionEstados(){
         I=new ArrayList<Estado>();
-        marcado=false;
+        aceptacion=false;
     }
     
     

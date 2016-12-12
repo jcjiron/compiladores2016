@@ -31,10 +31,16 @@ public class AFN {
 	private ArrayList<Estado> recorrido;
 
 	public HashMap<Estado, Integer> colleccionEstadosAceptacion = null;
+	public HashMap<Integer, String> colleccionTokenExpre = null;
+	public HashMap<Integer, String> colleccionTokenSimbGra = null;
 	private ArrayList<Estado> estadosAceptacion;
 	private ArrayList<String> lexema;
+	private ArrayList<String> simboloGramatica;
+	private ArrayList<String> expresionReg;
 	private ArrayList<Integer> token;
-	private String simboloGramatica;
+	private String simbGra;
+	private String expreRe;
+
 
 	public AFN(char car) {
 
@@ -45,12 +51,16 @@ public class AFN {
 		EdoAceptacion = aux1;
 		EdoInicial = aux;
 
-		colleccionEstadosAceptacion = new HashMap();
+		colleccionEstadosAceptacion = new HashMap<Estado, Integer>();
+		colleccionTokenExpre=new HashMap<Integer,String>();
+		colleccionTokenSimbGra=new HashMap<Integer,String>();
 
 	}
 
 	public AFN() {
-		colleccionEstadosAceptacion = new HashMap();
+		colleccionEstadosAceptacion = new HashMap<Estado, Integer>();
+		colleccionTokenExpre=new HashMap<Integer,String>();
+		colleccionTokenSimbGra=new HashMap<Integer,String>();
 	}
 
 	public void crearBasico(char sim) {
@@ -288,12 +298,36 @@ public class AFN {
 			colleccionEstadosAceptacion.put(f1.EdoAceptacion, f1.idLexema);
 		}
 	}
+	
+	public void unionEspecialAux(AFN f1) {
+
+		Estado iniAux = new Estado(getNewId());
+
+		iniAux.addTransicion(EPSILON, f1.EdoInicial);
+		iniAux.addTransicion(EPSILON, EdoInicial);
+		EdoInicial = iniAux;
+
+		// agrega el estado de aceptacion del automata padre
+		if (!colleccionEstadosAceptacion.containsKey(EdoAceptacion)) {
+			colleccionEstadosAceptacion.put(EdoAceptacion, idLexema);
+			colleccionTokenExpre.put(idLexema, expreRe);
+			colleccionTokenSimbGra.put(idLexema, simbGra);
+		}
+		// agrega el estado de aceptacion del automata que se unio
+		if (!colleccionEstadosAceptacion.containsKey(f1.EdoAceptacion)) {
+			colleccionEstadosAceptacion.put(f1.EdoAceptacion, f1.idLexema);
+			colleccionTokenExpre.put(f1.idLexema, f1.expreRe);
+			colleccionTokenSimbGra.put(f1.idLexema, f1.simbGra);
+		}
+	}
 
 	public boolean validarCadena(String cadena) {
 		String auxCad = "";
 		estadosAceptacion = new ArrayList<Estado>();
 		lexema = new ArrayList<String>();
 		token = new ArrayList<Integer>();
+		simboloGramatica=new ArrayList();
+		expresionReg=new ArrayList();
 
 		ArrayList<Estado> C = cerraduraEpsilon(EdoInicial);
 		for (int i = 0; i < cadena.length(); i++) {
@@ -322,7 +356,64 @@ public class AFN {
 		return false;
 	}
 
+	public boolean validarCadenaAux(String cadena) {
+		String auxCad = "";
+		estadosAceptacion = new ArrayList<Estado>();
+		lexema = new ArrayList<String>();
+		token = new ArrayList<Integer>();
+		simboloGramatica=new ArrayList();
+		expresionReg=new ArrayList();
 
+		ArrayList<Estado> C = cerraduraEpsilon(EdoInicial);
+		for (int i = 0; i < cadena.length(); i++) {
+			C = irA(C, cadena.charAt(i));
+			if (C.isEmpty()) {
+				return false;
+			} else {
+				auxCad += cadena.charAt(i);
+				// System.out.println(i);
+				for (Estado e : C) {
+					if (colleccionEstadosAceptacion.containsKey(e)) {
+						estadosAceptacion.add(e);
+						lexema.add(auxCad);
+						token.add(colleccionEstadosAceptacion.get(e));
+						int tok=token.get(token.size()-1);
+						simboloGramatica.add(colleccionTokenSimbGra.get(tok));
+						expresionReg.add(colleccionTokenExpre.get(tok));
+
+						auxCad = "";
+						C = cerraduraEpsilon(EdoInicial);
+
+						if (i == cadena.length() - 1) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void convertToAfd(AFN afn, ArrayList<String> alfabeto){
+		ArrayList<ColeccionEstados> c = new ArrayList<>();
+		ArrayList<ColeccionEstados> q = new ArrayList<>();
+		int i=0;
+		ColeccionEstados I=new ColeccionEstados();
+		I.setI(afn.cerraduraEpsilon(afn.EdoInicial));
+		I.setId(i);
+		
+		c.add(I);
+		q.add(I);
+		
+		ColeccionEstados I_aux=new ColeccionEstados();
+		while(!q.isEmpty()){
+			I_aux=q.get(q.size()-1);
+			
+			for(int e=0;e<alfabeto.size();e++){
+				ColeccionEstados x=new ColeccionEstados();
+			}
+		}
+	}
 
 	public void convertirAAfd(AFN afn, ArrayList<String> alfabeto) {
 		ArrayList<ColeccionEstados> c = new ArrayList<>();
@@ -393,12 +484,36 @@ public class AFN {
 		this.token = token;
 	}
 	
-	public void setSimboloGramatica(String sim){
-		simboloGramatica=sim;
+	public void setSimbGra(String sim){
+		simbGra=sim;
 	}
 	
-	public String getSimboloGramatica(){
+	public String getSimbGra(){
+		return simbGra;
+	}
+	
+	public String getExpreRe() {
+		return expreRe;
+	}
+
+	public void setExpreRe(String expresion) {
+		this.expreRe = expresion;
+	}
+	
+	public ArrayList<String> getSimboloGramatica() {
 		return simboloGramatica;
+	}
+
+	public void setSimboloGramatica(ArrayList<String> simboloGramatica) {
+		this.simboloGramatica = simboloGramatica;
+	}
+
+	public ArrayList<String> getExpresionReg() {
+		return expresionReg;
+	}
+
+	public void setExpresionReg(ArrayList<String> expresionReg) {
+		this.expresionReg = expresionReg;
 	}
 
 }
