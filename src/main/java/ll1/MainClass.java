@@ -19,9 +19,6 @@ public class MainClass {
 		
 		String cadena="28+5*(16-9)";
 		ll1.validarCadena(cadena);
-
-	
-
 	}
 
 }

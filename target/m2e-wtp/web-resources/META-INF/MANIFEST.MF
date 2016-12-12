@@ -1,6 +1,12 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Build-Time: 201612101656
 Build-Jdk: 1.7.0_79
 Built-By: pared
+=======
+Built-By: juancarlos
+Build-Time: 201612120410
+Build-Jdk: 1.8.0_77
+>>>>>>> f89ccc6891c333e6c4f434b611e0770a8b0a0e9e
 Created-By: Maven Integration for Eclipse
 

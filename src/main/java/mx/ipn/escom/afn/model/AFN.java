@@ -20,7 +20,7 @@ public class AFN {
 		return "AFN [name=" + name + "]";
 	}
 
-	public static char EPSILON = '0';
+	public static char EPSILON = 'e';
 
 	private String name;
 	private int idLexema;
@@ -34,6 +34,7 @@ public class AFN {
 	private ArrayList<Estado> estadosAceptacion;
 	private ArrayList<String> lexema;
 	private ArrayList<Integer> token;
+	private String simboloGramatica;
 
 	public AFN(char car) {
 
@@ -390,6 +391,14 @@ public class AFN {
 
 	public void setToken(ArrayList<Integer> token) {
 		this.token = token;
+	}
+	
+	public void setSimboloGramatica(String sim){
+		simboloGramatica=sim;
+	}
+	
+	public String getSimboloGramatica(){
+		return simboloGramatica;
 	}
 
 }

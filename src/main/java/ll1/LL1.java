@@ -9,7 +9,7 @@ import mx.ipn.escon.afn.calculadora.model.LexicoCalculadora;
 
 public class LL1 implements ConstantesCalc{
 
-	private static final String ERROR_EN_TABLA_LL1 = "-1";
+	private static final String CELDA_VACIA = "-1";
 	private static final String POP="POP";
 	private static final String ACCEPT="ACCEPT";
 	
@@ -55,15 +55,15 @@ public class LL1 implements ConstantesCalc{
 		
 		for(int j=0;j<filas.size();j++){
 			for(int k=0;k<col.size();k++){
-				ll1[j][k]=ERROR_EN_TABLA_LL1;
+				ll1[j][k]=CELDA_VACIA;
 			}
 		}
+		System.out.println(crearTablaLL1());
 		
-		crearTablaLL1();
 	}
 	
-	public void crearTablaLL1(){
-		
+	public boolean crearTablaLL1(){
+		boolean flag=true;
 		for(int i=0;i<productions.size();i++){
 			ArrayList<String> first=g.first(productions.get(i).getRight());
 			String izquierdo=productions.get(i).getLeft().getCad();
@@ -73,6 +73,9 @@ public class LL1 implements ConstantesCalc{
 				if(!first.get(e).equals(g.EPSILON)){
 					f=filas.indexOf(izquierdo);
 					c=col.indexOf(first.get(e));
+					if(!ll1[f][c].equals(CELDA_VACIA)){
+						flag=false;
+					}
 					ll1[f][c]=derecho+","+i;
 					
 				}else{
@@ -80,6 +83,9 @@ public class LL1 implements ConstantesCalc{
 					for(int k=0;k<follow.size();k++){
 						f=filas.indexOf(izquierdo);
 						c=col.indexOf(follow.get(k));
+						if(!ll1[f][c].equals(CELDA_VACIA)){
+							flag=false;
+						}
 						ll1[f][c]=g.EPSILON+","+i;
 					}
 					
@@ -90,9 +96,13 @@ public class LL1 implements ConstantesCalc{
 		for(int i=0;i<terminales.size();i++){
 			String terminal=terminales.get(i);
 			int indice=terminales.indexOf(terminal);
+			if(!ll1[indice][indice].equals(CELDA_VACIA)){
+				flag=false;
+			}
 			ll1[indice][indice]=POP;
 		}
 		ll1[filas.indexOf(g.FIN_DE_LINEA)][col.indexOf(g.FIN_DE_LINEA)]=ACCEPT;
+		return flag;
 	}
 	
 	public void imprimirTablaLL1(){
