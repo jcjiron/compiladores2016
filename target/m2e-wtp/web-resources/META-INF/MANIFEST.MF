@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Build-Time: 201612081730
-Build-Jdk: 1.7.0_79
-Built-By: pared
+Built-By: juancarlos
+Build-Time: 201612120410
+Build-Jdk: 1.8.0_77
 Created-By: Maven Integration for Eclipse
 
