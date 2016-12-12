@@ -394,25 +394,45 @@ public class AFN {
 		return false;
 	}
 	
-	public void convertToAfd(AFN afn, ArrayList<String> alfabeto){
-		ArrayList<ColeccionEstados> c = new ArrayList<>();
-		ArrayList<ColeccionEstados> q = new ArrayList<>();
-		int i=0;
-		ColeccionEstados I=new ColeccionEstados();
-		I.setI(afn.cerraduraEpsilon(afn.EdoInicial));
-		I.setId(i);
+	public ArrayList<Integer[]> convertToAfd(AFN afn, String alfabeto){
+		ArrayList<ArrayList<Estado>> c = new ArrayList<ArrayList<Estado>>();
+		ArrayList<ArrayList<Estado>> q = new ArrayList<ArrayList<Estado>>();
 		
-		c.add(I);
-		q.add(I);
+		ArrayList<Integer[]> afd=new ArrayList<Integer[]>();
+		Integer[] fila=new Integer[3];
 		
-		ColeccionEstados I_aux=new ColeccionEstados();
+		ArrayList<Estado> i=new ArrayList<Estado>();
+		i=afn.cerraduraEpsilon(afn.EdoInicial);
+		c.add(i);
+		q.add(i);
+		
 		while(!q.isEmpty()){
-			I_aux=q.get(q.size()-1);
+			ArrayList<Estado> i_aux= new ArrayList<Estado>();
+			i_aux=q.remove(q.size()-1);
 			
-			for(int e=0;e<alfabeto.size();e++){
-				ColeccionEstados x=new ColeccionEstados();
+			for(int a=0;a<alfabeto.length();a++){
+				i=afn.irA(i_aux, alfabeto.charAt(a));
+				if(c.contains(i)){
+					fila[0]=c.indexOf(i_aux);
+					fila[1]=c.indexOf(i);
+					fila[2]=a;
+					afd.add(fila);
+					fila=new Integer[3];
+				}else{
+					c.add(i);
+					q.add(i);
+				}
 			}
 		}
+		return afd;
+	}
+	
+	public Integer[] iniciarFilaAfd(int size){
+		Integer[] fila=new Integer[size];
+		for(int k=0;k<fila.length;k++){
+			fila[k]=-1;
+		}
+		return fila;
 	}
 
 	public void convertirAAfd(AFN afn, ArrayList<String> alfabeto) {

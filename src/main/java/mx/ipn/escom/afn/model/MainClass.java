@@ -23,6 +23,7 @@ public class MainClass {
     	 AFN f=sintactico.unionEspecial();
          String cadena="ababcdefcdghijij";
          f.validarCadenaAux(cadena);
+         
          System.out.println("=======================");
             for(int i=0;i<f.getToken().size();i++){
             	String expresionRgular=f.getExpresionReg().get(i);
