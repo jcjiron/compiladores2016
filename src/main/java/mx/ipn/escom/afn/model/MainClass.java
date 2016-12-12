@@ -17,14 +17,19 @@ public class MainClass {
     public static void main(String[] args) {
      SintacticoAFN sintactico=new SintacticoAFN();
      String archivo="reglas.txt";
-     System.out.println(sintactico.cargarArchivo(archivo));
+
      
-     AFN f=sintactico.unionEspecial();
-     String cadena="ababcdefcdghijij";
-     f.validarCadena(cadena);
+     if(sintactico.cargarArchivo(archivo)){
+    	 AFN f=sintactico.unionEspecial();
+         String cadena="ababcdefcdghijij";
+         f.validarCadena(cadena);
+         
+            for(int t:f.getToken()){
+            	System.out.println(t);
+            }
+     }else{
+    	 System.out.println("Hubo un error en las expresiones del archivo");
+     }
      
-        for(int t:f.getToken()){
-        	System.out.println(t);
-        }
     }
 }
