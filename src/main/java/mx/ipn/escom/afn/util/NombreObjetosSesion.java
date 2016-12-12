@@ -42,4 +42,5 @@ public class NombreObjetosSesion {
 	public static final String ID = "ID";
 	public static final String LISTALFABETO = "alfabeto";
 	public static final String ACTION = "Action";
+	public static final String LISTA_REGLAS = "lista_reglas";
 }

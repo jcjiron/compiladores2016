@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Declara la configuración de logback como framework para Log -->
+
+<configuration>
+
+	<contextName>logs</contextName>
+	<!-- Se define un appender para log en consola -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d %5p |Thread: %t | %-55logger{55} | %m %n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Se define el nivel para el logger de Hibernate -->
+	<logger name="org.hibernate.type" level="ERROR" />
+	<logger name="org.hibernate" level="ERROR" />
+
+	<!-- Se define el nivel para el logger de Spring -->
+	<logger name="org.springframework" level="ERROR" />
+
+	<!-- Se define el nivel para el logger de Rest -->
+	<logger name="org.apache.struts2.rest" level="ERROR" />
+	<logger name="org.apache.struts2" level="ERROR" />
+
+	<root>
+		<!-- Se define el nivel para mostrar -->
+		<level value="ERROR" />
+		<level value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>

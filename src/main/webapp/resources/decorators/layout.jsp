@@ -73,6 +73,9 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/scripts/emeth-dataTables.js"
 		type="text/javascript"></script>
+		<script
+		src="${pageContext.request.contextPath}/resources/scripts/util.js"
+		type="text/javascript"></script>
 	]]>
 </jsp:text>
 <decorator:head />

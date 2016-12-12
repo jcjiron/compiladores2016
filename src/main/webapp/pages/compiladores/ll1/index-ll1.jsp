@@ -30,14 +30,17 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-4 label-obligatorio control-label">reglas</div>
+					<div class="col-md-4  control-label">lista de reglas</div>
 					<div class="col-md-4">
-						<s:property value="reglas " />
+						<s:iterator value="listReglas" var="reg">
+							<p>
+								<s:property value="reg" />
+							</p>
+						</s:iterator>
 					</div>
+
 				</div>
-				<div class="form-group">
-					<s:submit value="Aceptar" />
-				</div>
+				
 			</div>
 
 		</div>
@@ -49,7 +52,7 @@
 				<table>
 					<thead>
 						<tr>
-						<th>----</th>
+							<th>----</th>
 							<s:iterator var="str" value="ll1.col">
 								<th><s:property value="str" /></th>
 
@@ -59,7 +62,7 @@
 
 					<tbody>
 						<s:iterator var="fil" value="ll1.filas" status="stat">
-							
+
 							<tr>
 								<td><s:property value="fil" /></td>
 								<s:iterator var="ll" value="ll1.ll1[#stat.count-1]">
