@@ -31,6 +31,10 @@ public class AfnCtrl extends ActionSupport {
 
 	private Integer IdLexema;
 
+	private String expresion;
+	
+	private String sim;
+	
 	private ArrayList<String> Alfabeto;
 
 	public String index() {
@@ -214,7 +218,7 @@ public class AfnCtrl extends ActionSupport {
 		listAfns = (List<AFN>) SessionManager.get(NombreObjetosSesion.LISTAFN);
 		afn = new AFN();
 		afn = getAfnUsed(idAfn);
-		isValida = afn.validarCadena(cadena);
+		isValida = afn.validarCadenaAux(cadena);
 		
 		IdLexema = afn.getIdLexema();
 
@@ -232,7 +236,8 @@ public class AfnCtrl extends ActionSupport {
 		afn = getAfnUsed(idAfn);
 		
 		afn.setIdLexema(IdLexema);
-
+		afn.setExpreRe(expresion);
+		afn.setSimbGra(sim);
 		SessionManager.set(listAfns, NombreObjetosSesion.LISTAFN);
 		SessionManager.set(id, NombreObjetosSesion.ID);
 		return index();
@@ -247,7 +252,7 @@ public class AfnCtrl extends ActionSupport {
 		afn = getAfnUsed(idAfn);
 		AFN afn2 = new AFN();
 		afn2 = getAfnUsed(idAfn2);
-		afn.unionEspecial(afn2);
+		afn.unionEspecialAux(afn2);
 		listAfns.remove(afn2);
 		SessionManager.set(listAfns, NombreObjetosSesion.LISTAFN);
 		SessionManager.set(id, NombreObjetosSesion.ID);
@@ -352,6 +357,22 @@ public class AfnCtrl extends ActionSupport {
 
 	public void setIdLexema(Integer idLexema) {
 		IdLexema = idLexema;
+	}
+
+	public String getExpresion() {
+		return expresion;
+	}
+
+	public void setExpresion(String expresion) {
+		this.expresion = expresion;
+	}
+
+	public String getSim() {
+		return sim;
+	}
+
+	public void setSim(String sim) {
+		this.sim = sim;
 	}
 
 }

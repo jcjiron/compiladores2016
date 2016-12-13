@@ -14,18 +14,34 @@
 	</h1>
 	<s:form method="POST"
 		action="%{#pageContext.request.contextPath}/thompson/afn!idLexema">
-		
+
 		<s:select name="idAfn" list="listAfns" listValue="name"
 			listKey="idLexema" />
-		
+
 		<div class="form-group">
-						<div class="col-md-4 label-obligatorio control-label">
-							<s:text name="id Lexema" />
-						</div>
-						<div class="col-md-8">
-							<s:textfield name="idLexema" cssClass="form-control" />
-						</div>
-					</div>
+			<div class="col-md-4 label-obligatorio control-label">
+				<s:text name="id Lexema" />
+			</div>
+			<div class="col-md-8">
+				<s:textfield name="idLexema" cssClass="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-4 label-obligatorio control-label">
+				<s:text name="Exprecion" />
+			</div>
+			<div class="col-md-8">
+				<s:textfield name="expresion" cssClass="form-control" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-4 label-obligatorio control-label">
+				<s:text name="Simbolo Gramatica" />
+			</div>
+			<div class="col-md-8">
+				<s:textfield name="sim" cssClass="form-control" />
+			</div>
+		</div>
 		<div>
 			<s:submit value="Aceptar" />
 		</div>

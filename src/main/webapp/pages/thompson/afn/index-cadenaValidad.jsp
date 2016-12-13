@@ -31,14 +31,27 @@
 		</div>
 	</div>
 	<s:if test="isValida eq true">
-		<div class="form-group">
-			<div class="col-md-4 label-obligatorio control-label">
-				<s:text name="Id Lexema" />
+		
+
+		<s:iterator value="afn.simboloGramatica" var="f" status="incr">
+			<s:set var="cnt" value="%{#incr.index}" />
+			
+			<div class="form-group">
+				<div class="col-md-4 ">
+					<s:text name="afn.token[#cnt]" />
+				</div>
+
+				<div class="col-md-4">
+					<s:property value="f" />
+
+				</div>
+				<div class="col-md-4">
+					
+					<s:property value="afn.expresionReg[#cnt]" />
+				</div>
 			</div>
-			<div class="col-md-8">
-				<s:property value="IdLexema" />
-			</div>
-		</div>
+		</s:iterator>
+
 	</s:if>
 </body>
 	</html>
