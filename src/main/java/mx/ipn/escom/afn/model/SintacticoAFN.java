@@ -53,7 +53,8 @@ public class SintacticoAFN implements ConstantesAFN {
 					flag=false;
 				}else{
 					afns[i].setIdLexema(idLexema);
-					afns[i].setSimboloGramatica(simGra);
+					afns[i].setSimbGra(simGra);
+					afns[i].setExpreRe(expr);
 				}
 			}
 				
@@ -76,7 +77,7 @@ public class SintacticoAFN implements ConstantesAFN {
 	
 	public AFN unionEspecial(){
 		for(int i=1;i<afns.length;i++){
-			afns[0].unionEspecial(afns[i]);
+			afns[0].unionEspecialAux(afns[i]);
 		}
 		return afns[0];
 	}

@@ -22,10 +22,14 @@ public class MainClass {
      if(sintactico.cargarArchivo(archivo)){
     	 AFN f=sintactico.unionEspecial();
          String cadena="ababcdefcdghijij";
-         f.validarCadena(cadena);
+         f.validarCadenaAux(cadena);
          
-            for(int t:f.getToken()){
-            	System.out.println(t);
+         System.out.println("=======================");
+            for(int i=0;i<f.getToken().size();i++){
+            	String expresionRgular=f.getExpresionReg().get(i);
+            	int token=f.getToken().get(i);
+            	String simboloReconocido=f.getSimboloGramatica().get(i);
+            	System.out.println(token+":"+expresionRgular+":"+simboloReconocido);
             }
      }else{
     	 System.out.println("Hubo un error en las expresiones del archivo");
