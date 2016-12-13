@@ -13,6 +13,7 @@
 		<pattern>*/informacion-base/gestionar-empresa!especialistaByExample*
 		</pattern>
 		<pattern>/compiladores/ll1!agregarRegla*</pattern>
+		<pattern>/thompson/archivo!validarCadena*</pattern>
 	</excludes>
 	<!-- Nombre del archivo decorador ubicado en defaultdir y que será aplicado 
 		a los recursos que empaten con el patrón definido -->

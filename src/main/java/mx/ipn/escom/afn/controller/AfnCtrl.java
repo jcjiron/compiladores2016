@@ -216,7 +216,7 @@ public class AfnCtrl extends ActionSupport {
 		afn = getAfnUsed(idAfn);
 		isValida = afn.validarCadena(cadena);
 		
-//		IdLexema = afn.getToken();
+		IdLexema = afn.getIdLexema();
 
 		SessionManager.set(listAfns, NombreObjetosSesion.LISTAFN);
 		SessionManager.set(id, NombreObjetosSesion.ID);
@@ -230,7 +230,8 @@ public class AfnCtrl extends ActionSupport {
 		listAfns = (List<AFN>) SessionManager.get(NombreObjetosSesion.LISTAFN);
 		afn = new AFN();
 		afn = getAfnUsed(idAfn);
-		afn.setId(IdLexema);
+		
+		afn.setIdLexema(IdLexema);
 
 		SessionManager.set(listAfns, NombreObjetosSesion.LISTAFN);
 		SessionManager.set(id, NombreObjetosSesion.ID);

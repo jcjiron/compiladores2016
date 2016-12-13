@@ -1,0 +1,5 @@
+a&b,10,ab
+c&d,20,ac
+e&f,30,ef
+g&h,40,gh
+i&j,50,ij

@@ -400,5 +400,6 @@ public class AFN {
 	public String getSimboloGramatica(){
 		return simboloGramatica;
 	}
+	
 
 }
