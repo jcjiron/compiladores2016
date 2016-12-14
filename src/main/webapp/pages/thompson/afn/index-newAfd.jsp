@@ -17,6 +17,15 @@
 		<s:select name="idAfn" list="listAfns" listValue="name"
 			listKey="idLexema" />
 		
+		
+		<div class="form-group">
+			<div class="col-md-4 label-obligatorio control-label">
+				<s:text name="Alfabeto" />
+			</div>
+			<div class="col-md-8">
+				<s:textfield name="alfabeto" cssClass="form-control" />
+			</div>
+		</div>
 		<div>
 			<s:submit value="Aceptar" />
 		</div>

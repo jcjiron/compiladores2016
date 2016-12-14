@@ -28,18 +28,25 @@
 			<!--  -->
 		</div>
 	</div>
-	<s:iterator value="listToken" var="afn">
-	<div class="form-group">
-		<div class="col-md-4 ">
-			<!--  -->
-		</div>
-		<div class="col-md-8">
-			<s:property value="afn" />
-		</div>
-	</div>
-		
-	</s:iterator>
 
+	<s:iterator value="f.simboloGramatica" var="afn" status="incr">
+		<s:set var="cnt" value="%{#incr.index}" />
+
+		<div class="form-group">
+			<div class="col-md-4 ">
+				<s:text name="f.token[#cnt]" />
+			</div>
+
+			<div class="col-md-4">
+				<s:property value="afn" />
+
+			</div>
+			<div class="col-md-4">
+
+				<s:property value="f.expresionReg[#cnt]" />
+			</div>
+		</div>
+	</s:iterator>
 </body>
 	</html>
 </jsp:root>

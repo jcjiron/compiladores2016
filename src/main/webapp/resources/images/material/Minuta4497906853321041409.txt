@@ -1,0 +1,4 @@
+S?D+,10,CAD1
+S?D+P&D+,20,CAD2
+B+,30,CAD3
+L(L|D)*,40,CAD4

@@ -1,6 +1,9 @@
 package mx.ipn.escom.afn.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import mx.ipn.escom.afn.util.TablaAfn;
 
 public class MainTestAfd {
 
@@ -20,6 +23,17 @@ public class MainTestAfd {
 		for(int g=0;g<afd.size();g++){
 			System.out.println(afd.get(g)[0]+","+afd.get(g)[1]+","+afd.get(g)[2]);
 		}
+		
+		TablaAfn tabla = new TablaAfn();
+		try {
+			tabla.convertir(afd,"ab");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 
 }

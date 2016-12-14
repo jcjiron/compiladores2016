@@ -25,6 +25,8 @@ public class Ll1Ctrl extends ActionSupport {
 	private LL1 ll1;
 
 	private List<String> listReglas;
+	
+	
 
 	public String index() {
 
@@ -50,6 +52,7 @@ public class Ll1Ctrl extends ActionSupport {
 		ll1 = new LL1(vt, vnt, reglas);
 		ll1.imprimirTablaLL1();
 
+		
 		String cadena = "28+5*(16-9)";
 		ll1.validarCadena(cadena);
 		return "ll1";
@@ -114,4 +117,6 @@ public class Ll1Ctrl extends ActionSupport {
 		this.regla = regla;
 	}
 
+	
+	
 }

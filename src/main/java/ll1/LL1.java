@@ -25,6 +25,7 @@ public class LL1 implements ConstantesCalc{
 	private ArrayList<String> lexemas;
 	private ArrayList<Integer> tokens;
 	private ArrayList<String> accion;
+	private Boolean isLL1;
 	
 	public LL1(String vt, String vnt,String reglas){
 		g=new Gramatica(reglas,vt,vnt);
@@ -58,7 +59,7 @@ public class LL1 implements ConstantesCalc{
 				ll1[j][k]=CELDA_VACIA;
 			}
 		}
-		System.out.println(crearTablaLL1());
+		isLL1= crearTablaLL1();
 		
 	}
 	
@@ -160,6 +161,14 @@ public class LL1 implements ConstantesCalc{
 
 	public void setLl1(String[][] ll1) {
 		this.ll1 = ll1;
+	}
+
+	public Boolean getIsLL1() {
+		return isLL1;
+	}
+
+	public void setIsLL1(Boolean isLL1) {
+		this.isLL1 = isLL1;
 	}
 	
 	

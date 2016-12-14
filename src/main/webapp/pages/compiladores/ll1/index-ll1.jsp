@@ -44,6 +44,9 @@
 			</div>
 
 		</div>
+		
+		<s:property value="ll1.isLL1" />
+		
 		<div class="row">
 			<div class="col-md-4  ">
 				<!--  -->

@@ -328,26 +328,58 @@ public class AFN {
 		token = new ArrayList<Integer>();
 		simboloGramatica=new ArrayList();
 		expresionReg=new ArrayList();
-
+		Estado ultimoAcep=null;
+		Integer ultimoIndex= null;
 		ArrayList<Estado> C = cerraduraEpsilon(EdoInicial);
 		for (int i = 0; i < cadena.length(); i++) {
 			C = irA(C, cadena.charAt(i));
 			if (C.isEmpty()) {
-				return false;
+				//************
+				if(ultimoAcep != null){
+					estadosAceptacion.add(ultimoAcep);
+					lexema.add(auxCad);
+					token.add(colleccionEstadosAceptacion.get(ultimoAcep));
+					int tok=token.get(token.size()-1);
+					simboloGramatica.add(colleccionTokenSimbGra.get(tok));
+					expresionReg.add(colleccionTokenExpre.get(tok));
+
+					auxCad = "";
+					i=ultimoIndex+1;
+					C = cerraduraEpsilon(ultimoAcep);
+					ultimoAcep=null;
+
+					if (i == cadena.length() - 1) {
+						return true;
+					}
+				}else{
+					return false;
+				}
+				//***************
 			} else {
 				auxCad += cadena.charAt(i);
 				// System.out.println(i);
 				for (Estado e : C) {
 					if (colleccionEstadosAceptacion.containsKey(e)) {
-						estadosAceptacion.add(e);
-						lexema.add(auxCad);
-						token.add(colleccionEstadosAceptacion.get(e));
+						ultimoAcep = e;
+						ultimoIndex=i;
+						
+					}else{
+						if(ultimoAcep != null){
+							estadosAceptacion.add(ultimoAcep);
+							lexema.add(auxCad);
+							token.add(colleccionEstadosAceptacion.get(ultimoAcep));
+							int tok=token.get(token.size()-1);
+							simboloGramatica.add(colleccionTokenSimbGra.get(tok));
+							expresionReg.add(colleccionTokenExpre.get(tok));
 
-						auxCad = "";
-						C = cerraduraEpsilon(EdoInicial);
-
-						if (i == cadena.length() - 1) {
-							return true;
+							auxCad = "";
+							i=ultimoIndex+1;
+							C = cerraduraEpsilon(ultimoAcep);
+							ultimoAcep=null;
+							
+							if (i == cadena.length() - 1) {
+								return true;
+							}
 						}
 					}
 				}

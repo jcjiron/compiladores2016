@@ -1,5 +1,6 @@
 package mx.ipn.escom.afn.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import mx.ipn.escom.afn.model.AFN;
 import mx.ipn.escom.afn.util.NombreObjetosSesion;
 import mx.ipn.escom.afn.util.SessionManager;
+import mx.ipn.escom.afn.util.TablaAfn;
 
 @Namespace("/thompson")
 public class AfnCtrl extends ActionSupport {
@@ -34,6 +36,10 @@ public class AfnCtrl extends ActionSupport {
 	private String expresion;
 	
 	private String sim;
+	
+	private String alfabeto;
+	
+	private String[][] af;
 	
 	private ArrayList<String> Alfabeto;
 
@@ -266,12 +272,18 @@ public class AfnCtrl extends ActionSupport {
 		Alfabeto = (ArrayList<String>) SessionManager.get(NombreObjetosSesion.LISTALFABETO);
 		AFN afn = new AFN();
 		afn = getAfnUsed(idAfn);
-		
-		afn.convertirAAfd(afn, Alfabeto);;
+		ArrayList<Integer[]>afd= afn.convertToAfd(afn, alfabeto);
+		TablaAfn tabla = new TablaAfn();
+		 try {
+			af =  tabla.convertir(afd,alfabeto);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		SessionManager.set(listAfns, NombreObjetosSesion.LISTAFN);
 		SessionManager.set(id, NombreObjetosSesion.ID);
-		return index();
+		return "conversion";
 	}
 	private AFN getAfnUsed(Integer id) {
 
@@ -373,6 +385,22 @@ public class AfnCtrl extends ActionSupport {
 
 	public void setSim(String sim) {
 		this.sim = sim;
+	}
+
+	public String getAlfabeto() {
+		return alfabeto;
+	}
+
+	public void setAlfabeto(String alfabeto) {
+		this.alfabeto = alfabeto;
+	}
+
+	public String[][] getAf() {
+		return af;
+	}
+
+	public void setAf(String[][] af) {
+		this.af = af;
 	}
 
 }
